@@ -5,8 +5,9 @@ class Grafo
 {
 	std::vector<Cidade> cidades;  // Lista de cidades
 	std::vector<std::vector<float>> distancias;
+	int capacidade;
 
-	Grafo(int numCidades);
+	Grafo(int numCidades, int capacidade);
 
 	Cidade getCidade(int vertice) const;
 

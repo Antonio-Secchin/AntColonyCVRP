@@ -1,9 +1,10 @@
 #include "Grafo.h"
 #include <cmath>
 
-Grafo::Grafo(int numCidades) {
+Grafo::Grafo(int numCidades, int capacity) {
     cidades.reserve(numCidades);  // Opcional: otimiza alocação
     distancias.resize(numCidades, std::vector<float>(numCidades, -1));  // -1 indica sem conexão
+    capacidade = capacity;
 }
 
 Cidade Grafo::getCidade(int vertice) const {
