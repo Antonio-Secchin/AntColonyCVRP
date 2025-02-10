@@ -1,13 +1,13 @@
 #pragma once
 class Cidade
 {
-	int vertice;
+public:
+	int id;
 	int posX;
 	int posY;
 	int demand;
-public:
 
-	Cidade(int vertice, int posX, int posY, int demand);
+	Cidade(int id = 0, int posX = 0, int posY = 0, int demand = 0);
 
 	int getVertice() const;
 
@@ -18,5 +18,5 @@ public:
 	int getDemand() const;
 };
 
-float CalculaDistancia(const Cidade& c1, const Cidade& c2);
+double CalculaDistancia(const Cidade& c1, const Cidade& c2);
 
