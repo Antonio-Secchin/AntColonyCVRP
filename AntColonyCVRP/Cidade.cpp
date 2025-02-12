@@ -23,7 +23,7 @@ int Cidade::getDemand() const {
 	return demand;
 }
 
-double CalculaDistancia(const Cidade& c1, const Cidade& c2) {
+int CalculaDistancia(const Cidade& c1, const Cidade& c2) {
 	int distX = c1.getPosX() - c2.getPosX();
 	int distY = c1.getPosY() - c2.getPosY();
 	return std::round(std::sqrt(distX * distX + distY * distY));

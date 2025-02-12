@@ -18,5 +18,5 @@ public:
 	int getDemand() const;
 };
 
-double CalculaDistancia(const Cidade& c1, const Cidade& c2);
+int CalculaDistancia(const Cidade& c1, const Cidade& c2);
 

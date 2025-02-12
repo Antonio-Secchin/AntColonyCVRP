@@ -128,12 +128,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Ant.cpp" />
     <ClCompile Include="AntColonyCVRP.cpp" />
     <ClCompile Include="Cidade.cpp" />
+    <ClCompile Include="Colony.cpp" />
     <ClCompile Include="Grafo.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Ant.h" />
     <ClInclude Include="Cidade.h" />
+    <ClInclude Include="Colony.h" />
     <ClInclude Include="Grafo.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

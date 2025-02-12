@@ -5,8 +5,9 @@
 
 class Grafo
 {
+protected:
 	std::vector<Cidade> cidades;  // Lista de cidades
-	std::vector<std::vector<double>> distancias;
+	std::vector<std::vector<int>> distancias;
 	int capacidade;
 
 public:
@@ -17,7 +18,7 @@ public:
 
 	Cidade getCidade(int vertice) const;
 
-	double getDistancia(int vertice1, int vertice2) const;
+	int getDistancia(int vertice1, int vertice2) const;
 
 	std::string toString() const;
 };

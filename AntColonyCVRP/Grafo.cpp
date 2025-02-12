@@ -74,7 +74,7 @@ Cidade Grafo::getCidade(int vertice) const {
     return cidades[vertice];
 }
 
-double Grafo::getDistancia(int vertice1, int vertice2) const {
+int Grafo::getDistancia(int vertice1, int vertice2) const {
     return distancias[vertice1][vertice2];
 }
 
