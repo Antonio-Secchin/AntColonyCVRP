@@ -7,8 +7,9 @@
 
 Grafo::Grafo(int numCidades, int capacity) {
     cidades.reserve(numCidades);  // Opcional: otimiza alocação
-    distancias.resize(numCidades, std::vector<double>(numCidades, -1));  // -1 indica sem conexão
+    distancias.resize(numCidades, std::vector<int>(numCidades, -1));  // -1 indica sem conexão
     capacidade = capacity;
+    this->numCidades = numCidades;
 }
 
 Grafo::Grafo(const std::string& caminho) {
@@ -59,7 +60,8 @@ Grafo::Grafo(const std::string& caminho) {
         }
     }
 
-    distancias.resize(numCidades, std::vector<double>(numCidades, -1));
+    this->numCidades = numCidades;
+    distancias.resize(numCidades, std::vector<int>(numCidades, -1));
     
     std::cout << numCidades;
     for (int i = 0; i < numCidades; i++)

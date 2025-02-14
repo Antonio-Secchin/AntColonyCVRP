@@ -8,6 +8,7 @@ class Grafo
 protected:
 	std::vector<Cidade> cidades;  // Lista de cidades
 	std::vector<std::vector<int>> distancias;
+	int numCidades;
 	int capacidade;
 
 public:

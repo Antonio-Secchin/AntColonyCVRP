@@ -14,9 +14,15 @@ class Colony :
     //Peso para a influencia dos feromonios
     double beta;
 
+    int tempoExec;
+
+    int numFormigas;
+
     std::vector<Ant> formigas;
     std::vector<std::vector<double>> feromonios;
     std::vector<std::vector<double>> probabilidades;
+
+    Colony(double evaporationRate, double alpha, double beta, int tempoExec, int numFormigas, const std::string& caminho);
 
     void AtualizaFeromonio();
 

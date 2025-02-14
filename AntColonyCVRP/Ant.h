@@ -9,6 +9,10 @@ class Ant
 
 
 public:
+	int getCusto();
+
+	std::vector<std::vector<int>> getSolucao();
+
 	void CriaSolucao(const Grafo& grafo);
 
 
