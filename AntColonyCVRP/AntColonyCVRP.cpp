@@ -5,20 +5,19 @@
 #include <fstream>
 #include <string>
 #include <filesystem>
-#include "Grafo.h"
+#include "Colony.h"
 
 namespace fs = std::filesystem;
 
-void lerArquivo(const std::string& caminho) {
+std::string lerArquivo(const std::string& caminho) {
     std::ifstream arquivo(caminho);
     if (!arquivo) {
         std::cerr << "Erro ao abrir o arquivo: " << caminho << std::endl;
-        return;
+        return NULL;
     }
     fs::path arq_ext(caminho);
     if (arq_ext.extension() == ".vrp") {
-        Grafo grafo(caminho);
-        std::cout << grafo.toString();
+        return caminho;
     }
     else if (arq_ext.extension() == ".sol") {
         std::string linha;
@@ -36,6 +35,7 @@ void lerArquivo(const std::string& caminho) {
     else {
         std::cerr << "Formato de arquivo nao reconhecido";
     }
+    return NULL;
 }
 
 void lerArquivosNoDiretorio(const std::string& diretorio) {
@@ -53,24 +53,36 @@ void lerArquivosNoDiretorio(const std::string& diretorio) {
     }
 }
 
+void Inicializa(const std::string& caminho, double evaporationRate, double alpha, double beta, int tempoExec, int numFormigas) {
+    if (fs::is_directory(caminho)) {
+        lerArquivosNoDiretorio(caminho);
+    }
+    else if (fs::is_regular_file(caminho)) {
+        std::string conteudo = lerArquivo(caminho);
+        Colony colonia(evaporationRate, alpha, beta, tempoExec, numFormigas, conteudo);
+        colonia.CriaSolucoes();
+    }
+    else {
+        std::cerr << "Erro: Caminho invalido -> " << caminho << std::endl;
+        return;
+    }
+}
+
 int main(int argc, char* argv[]) {
-    if (argc < 2) {
+    if (argc < 7) {
         std::cerr << "Uso: " << argv[0] << " <diretorio ou arquivo>" << std::endl;
         return 1;
     }
-
+    
+    //double evaporationRate, double alpha, double beta, int tempoExec, int numFormigas
     std::string entrada = argv[1];
+    double evaporationRate = atof(argv[2]);
+    double alpha = atof(argv[3]);
+    double beta = atof(argv[4]);
+    int tempoExec = std::atoi(argv[5]);
+    int numFormigas = std::atoi(argv[6]);
 
-    if (fs::is_directory(entrada)) {
-        lerArquivosNoDiretorio(entrada);
-    }
-    else if (fs::is_regular_file(entrada)) {
-        lerArquivo(entrada);
-    }
-    else {
-        std::cerr << "Erro: Caminho invalido -> " << entrada << std::endl;
-        return 1;
-    }
+    Inicializa(entrada, evaporationRate, alpha, beta, tempoExec, numFormigas);
 
     return 0;
 }

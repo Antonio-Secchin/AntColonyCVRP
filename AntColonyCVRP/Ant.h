@@ -5,16 +5,22 @@ class Ant
 {
 	int custo;
 	int capacidade;
+	int capacidadeAtual;
+	int cidadesVisitadas;
 	std::vector<std::vector<int>> solucao;
 
 
 public:
+	Ant(int capacity);
+
 	int getCusto();
 
 	std::vector<std::vector<int>> getSolucao();
 
-	void CriaSolucao(const Grafo& grafo);
+	void CriaSolucao(std::vector<Cidade> cidades, const std::vector<std::vector<int>>& distancias, 
+		const std::vector<std::vector<double>>& probabilidades);
 
-
+	int EscolheProxVertice(const std::vector<bool>& visitados, const std::vector<Cidade>& cidades,
+		const std::vector<double>& probabilidades);
 };
 

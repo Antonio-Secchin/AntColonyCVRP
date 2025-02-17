@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <utility>
 #include "Grafo.h"
 #include "Ant.h"
 class Colony :
@@ -22,12 +23,14 @@ class Colony :
     std::vector<std::vector<double>> feromonios;
     std::vector<std::vector<double>> probabilidades;
 
+public:
+
     Colony(double evaporationRate, double alpha, double beta, int tempoExec, int numFormigas, const std::string& caminho);
 
     void AtualizaFeromonio();
 
     void AtualizaProbabilidades();
 
-    std::vector<std::vector<int>> CriaSolucoes(int time_max);
+    std::tuple<std::vector<std::vector<int>>,int, std::vector<std::vector<std::vector<int>>>> CriaSolucoes();
 };
 

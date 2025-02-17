@@ -1,12 +1,15 @@
 #include "Colony.h"
 #include <chrono>
 #include <vector>
+#include <iostream>
 
 
 Colony::Colony(double evaporationRate, double alpha, double beta, int tempoExec, int numFormigas, const std::string& caminho) 
 	: Grafo(caminho), evaporationRate(evaporationRate), alpha(alpha), beta(beta), numFormigas(numFormigas), tempoExec(tempoExec) {
-	formigas.resize(numFormigas);
+	formigas.resize(numFormigas, Ant(capacidade));
 	probabilidades.resize(numCidades, std::vector<double>(numCidades, -1));
+	feromonios.resize(numCidades, std::vector<double>(numCidades, 0.001));
+	AtualizaProbabilidades();
 }
 
 void Colony::AtualizaFeromonio() {
@@ -41,16 +44,13 @@ void Colony::AtualizaProbabilidades() {
 	// Número de cidades (assumindo que 'cidades' está corretamente preenchido)
 	int n = cidades.size();
 
-	// Ajusta a matriz de probabilidades para ter o mesmo tamanho
-	probabilidades.resize(n, std::vector<double>(n, 0.0));
-
 	// Para cada cidade i, calcule a soma do termo para todas as cidades j (exceto i)
 	for (int i = 0; i < n; i++) {
 		double denominator = 0.0;
 		for (int j = 0; j < n; j++) {
 			if (i == j)
 				continue;
-			// Feromônio na aresta (i,j)
+			//Feromônio na aresta (i,j)
 			double tau = feromonios[i][j];
 			// Informacao heurística: 1/distância, se a distância for maior que 0
 			double eta = (distancias[i][j] > 0 ? 1.0 / distancias[i][j] : 0.0);
@@ -75,10 +75,11 @@ void Colony::AtualizaProbabilidades() {
 	}
 }
 
-std::vector<std::vector<int>> Colony::CriaSolucoes(int time_max) {
+std::tuple<std::vector<std::vector<int>>, int, std::vector<std::vector<std::vector<int>>>> Colony::CriaSolucoes() {
 	auto start = std::chrono::high_resolution_clock::now();
-	int bestCusto = 0;
+	int bestCusto = INT_MAX;
 	std::vector<std::vector<int>> bestSolu;
+	std::vector<std::vector<std::vector<int>>> localBests;
 	auto bestTime = std::chrono::high_resolution_clock::now();
 	while (true) {
 		auto now = std::chrono::high_resolution_clock::now();
@@ -91,12 +92,16 @@ std::vector<std::vector<int>> Colony::CriaSolucoes(int time_max) {
 		int bestCustoLocal = 0;
 		std::vector<std::vector<int>> bestSoluLocal;
 		for (int i = 0; i < numFormigas; i++) {
-			//formigas[i].CriaSolucao(this);
-			if (i = 0 || bestCustoLocal > formigas[i].getCusto()) {
+			// ESTA AQUI
+			formigas[i].CriaSolucao(this->cidades, this->distancias, this->probabilidades);
+			if (bestCustoLocal > formigas[i].getCusto()) {
 				bestCustoLocal = formigas[i].getCusto();
 				bestSoluLocal = formigas[i].getSolucao();
 			}
 		}
+		// Tem erro nesse final
+		localBests.push_back(std::vector<std::vector<int>>());
+		localBests.push_back(bestSoluLocal);
 		if (bestCusto > bestCustoLocal) {
 			bestCusto = bestCustoLocal;
 			bestSolu = bestSoluLocal;
@@ -105,4 +110,6 @@ std::vector<std::vector<int>> Colony::CriaSolucoes(int time_max) {
 		AtualizaFeromonio();
 		AtualizaProbabilidades();
 	}
+	std::cout << bestCusto;
+	return std::make_tuple(bestSolu, bestCusto, localBests);
 }

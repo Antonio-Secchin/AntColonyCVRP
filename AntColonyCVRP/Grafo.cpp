@@ -63,7 +63,6 @@ Grafo::Grafo(const std::string& caminho) {
     this->numCidades = numCidades;
     distancias.resize(numCidades, std::vector<int>(numCidades, -1));
     
-    std::cout << numCidades;
     for (int i = 0; i < numCidades; i++)
         for (int j = i; j < numCidades; j++) {
             distancias[i][j] = CalculaDistancia(cidades[i], cidades[j]);
