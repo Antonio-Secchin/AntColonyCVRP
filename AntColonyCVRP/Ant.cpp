@@ -7,6 +7,7 @@ Ant::Ant(int capacity) {
 	capacidadeAtual = capacity;
 	custo = 0;
 	cidadesVisitadas = 0;
+	solucao.push_back(std::vector<int>());
 }
 
 
@@ -21,11 +22,18 @@ std::vector<std::vector<int>> Ant::getSolucao() {
 void Ant::CriaSolucao(std::vector<Cidade> cidades, const std::vector<std::vector<int>>& distancias, 
 	const std::vector<std::vector<double>>& probabilidades) {
 	
+	capacidadeAtual = capacidade;
+	custo = 0;
+	cidadesVisitadas = 0;
 	std::vector<bool> visitadas(cidades.size(), false);
 	int cidadeAnt = 0;
 	int numTour = 0;
-	solucao.push_back(std::vector<int>());
+	//solucao.push_back(std::vector<int>());
+	solucao[numTour] = std::vector<int>();  // Recria o vetor zerado
 	int cidadesTotais = cidades.size();
+	int test = 0;
+	//Visitando o 0
+	cidadesVisitadas++;
 	while (cidadesVisitadas < cidadesTotais) {
 		int cidadeProx = EscolheProxVertice(visitadas, cidades, probabilidades[cidadeAnt]);
 		visitadas[cidadeProx] = true;
@@ -33,13 +41,8 @@ void Ant::CriaSolucao(std::vector<Cidade> cidades, const std::vector<std::vector
 		capacidadeAtual -= cidades[cidadeProx].getDemand();
 		solucao[numTour].push_back(cidadeProx);
 		cidadeAnt = cidadeProx;
-		if (cidadesVisitadas < 12) {
-			std::cout << capacidadeAtual << "\n";
-		}
-		if (cidadesVisitadas == 13) {
-			std::cout << capacidadeAtual << "\n";
-			break;
-		}
+		//std::cout << "Cidades Visitadas:" << cidadesVisitadas << "\n";
+		//test++;
 	}
 }
 
@@ -60,6 +63,7 @@ int Ant::EscolheProxVertice(const std::vector<bool>& visitados, const std::vecto
 		if (!visitados[i]) {
 			acumulado += probabilidades[i];
 			if (acumulado >= randomValue && capacidadeAtual >= cidades[i].getDemand()) {
+				//std::cout << "cidadeEscolhida:" << i << "\n";
 				cidadesVisitadas++;
 				return i;  // Retorna a cidade escolhida
 			}

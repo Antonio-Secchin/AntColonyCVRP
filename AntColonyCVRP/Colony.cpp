@@ -31,8 +31,8 @@ void Colony::AtualizaFeromonio() {
 			// Para cada aresta na rota
 			for (size_t k = 0; k < tour.size() - 1; ++k) {
 				// Se os IDs das cidades começam em 1, converta para índice (0-based)
-				int cidade1 = tour[k] - 1;
-				int cidade2 = tour[k + 1] - 1;
+				int cidade1 = tour[k];
+				int cidade2 = tour[k + 1];
 				feromonios[cidade1][cidade2] += deltaFeromonio;
 				feromonios[cidade2][cidade1] += deltaFeromonio;  // Se a matriz é simétrica
 			}
@@ -89,7 +89,7 @@ std::tuple<std::vector<std::vector<int>>, int, std::vector<std::vector<std::vect
 			break;
 		}
 
-		int bestCustoLocal = 0;
+		int bestCustoLocal = INT_MAX;
 		std::vector<std::vector<int>> bestSoluLocal;
 		for (int i = 0; i < numFormigas; i++) {
 			// ESTA AQUI
