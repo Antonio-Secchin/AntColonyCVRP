@@ -7,7 +7,6 @@ Ant::Ant(int capacity) {
 	capacidadeAtual = capacity;
 	custo = 0;
 	cidadesVisitadas = 0;
-	solucao.push_back(std::vector<int>());
 }
 
 
@@ -15,7 +14,7 @@ int Ant::getCusto() {
 	return custo;
 }
 
-std::vector<std::vector<int>> Ant::getSolucao() {
+std::vector<int> Ant::getSolucao() {
 	return solucao;
 }
 
@@ -27,9 +26,7 @@ void Ant::CriaSolucao(std::vector<Cidade> cidades, const std::vector<std::vector
 	cidadesVisitadas = 0;
 	std::vector<bool> visitadas(cidades.size(), false);
 	int cidadeAnt = 0;
-	int numTour = 0;
-	//solucao.push_back(std::vector<int>());
-	solucao[numTour] = std::vector<int>();  // Recria o vetor zerado
+	solucao = std::vector<int>();  // Recria o vetor zerado
 	int cidadesTotais = cidades.size();
 	int test = 0;
 	//Visitando o 0
@@ -39,7 +36,7 @@ void Ant::CriaSolucao(std::vector<Cidade> cidades, const std::vector<std::vector
 		visitadas[cidadeProx] = true;
 		custo += distancias[cidadeAnt][cidadeProx];
 		capacidadeAtual -= cidades[cidadeProx].getDemand();
-		solucao[numTour].push_back(cidadeProx);
+		solucao.push_back(cidadeProx);
 		cidadeAnt = cidadeProx;
 		//std::cout << "Cidades Visitadas:" << cidadesVisitadas << "\n";
 		//test++;

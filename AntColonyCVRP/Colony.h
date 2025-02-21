@@ -31,6 +31,6 @@ public:
 
     void AtualizaProbabilidades();
 
-    std::tuple<std::vector<std::vector<int>>,int, std::vector<std::vector<std::vector<int>>>> CriaSolucoes();
+    std::tuple<std::vector<int>, int, std::vector<std::vector<int>>> CriaSolucoes();
 };
 

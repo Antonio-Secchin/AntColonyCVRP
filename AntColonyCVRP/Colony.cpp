@@ -26,16 +26,13 @@ void Colony::AtualizaFeromonio() {
 		double deltaFeromonio = 1.0 / custo;  // Contribuição da formiga para cada aresta usada
 
 		// Obtém a solução da formiga (supondo que seja um vetor de tours)
-		std::vector<std::vector<int>> sol = ant.getSolucao();
-		for (const auto& tour : sol) {
-			// Para cada aresta na rota
-			for (size_t k = 0; k < tour.size() - 1; ++k) {
-				// Se os IDs das cidades começam em 1, converta para índice (0-based)
-				int cidade1 = tour[k];
-				int cidade2 = tour[k + 1];
-				feromonios[cidade1][cidade2] += deltaFeromonio;
-				feromonios[cidade2][cidade1] += deltaFeromonio;  // Se a matriz é simétrica
-			}
+		std::vector<int> sol = ant.getSolucao();
+		for (size_t k = 0; k < sol.size() - 1; ++k) {
+			// Se os IDs das cidades começam em 1, converta para índice (0-based)
+			int cidade1 = sol[k];
+			int cidade2 = sol[k + 1];
+			feromonios[cidade1][cidade2] += deltaFeromonio;
+			feromonios[cidade2][cidade1] += deltaFeromonio;  // Se a matriz é simétrica
 		}
 	}
 }
@@ -75,11 +72,11 @@ void Colony::AtualizaProbabilidades() {
 	}
 }
 
-std::tuple<std::vector<std::vector<int>>, int, std::vector<std::vector<std::vector<int>>>> Colony::CriaSolucoes() {
+std::tuple<std::vector<int>, int, std::vector<std::vector<int>>> Colony::CriaSolucoes() {
 	auto start = std::chrono::high_resolution_clock::now();
 	int bestCusto = INT_MAX;
-	std::vector<std::vector<int>> bestSolu;
-	std::vector<std::vector<std::vector<int>>> localBests;
+	std::vector<int> bestSolu;
+	std::vector<std::vector<int>> localBests;
 	auto bestTime = std::chrono::high_resolution_clock::now();
 	while (true) {
 		auto now = std::chrono::high_resolution_clock::now();
@@ -90,7 +87,7 @@ std::tuple<std::vector<std::vector<int>>, int, std::vector<std::vector<std::vect
 		}
 
 		int bestCustoLocal = INT_MAX;
-		std::vector<std::vector<int>> bestSoluLocal;
+		std::vector<int> bestSoluLocal;
 		for (int i = 0; i < numFormigas; i++) {
 			// ESTA AQUI
 			formigas[i].CriaSolucao(this->cidades, this->distancias, this->probabilidades);
@@ -100,7 +97,6 @@ std::tuple<std::vector<std::vector<int>>, int, std::vector<std::vector<std::vect
 			}
 		}
 		// Tem erro nesse final
-		localBests.push_back(std::vector<std::vector<int>>());
 		localBests.push_back(bestSoluLocal);
 		if (bestCusto > bestCustoLocal) {
 			bestCusto = bestCustoLocal;

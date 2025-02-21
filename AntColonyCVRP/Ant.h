@@ -7,7 +7,7 @@ class Ant
 	int capacidade;
 	int capacidadeAtual;
 	int cidadesVisitadas;
-	std::vector<std::vector<int>> solucao;
+	std::vector<int> solucao;
 
 
 public:
@@ -15,7 +15,7 @@ public:
 
 	int getCusto();
 
-	std::vector<std::vector<int>> getSolucao();
+	std::vector<int> getSolucao();
 
 	void CriaSolucao(std::vector<Cidade> cidades, const std::vector<std::vector<int>>& distancias, 
 		const std::vector<std::vector<double>>& probabilidades);
