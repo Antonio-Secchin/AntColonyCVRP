@@ -81,6 +81,7 @@ int main(int argc, char* argv[]) {
     double beta = atof(argv[4]);
     int tempoExec = std::atoi(argv[5]);
     int numFormigas = std::atoi(argv[6]);
+    std::srand(42); // Seed fixa
 
     Inicializa(entrada, evaporationRate, alpha, beta, tempoExec, numFormigas);
 

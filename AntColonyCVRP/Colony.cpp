@@ -72,11 +72,11 @@ void Colony::AtualizaProbabilidades() {
 	}
 }
 
-std::tuple<std::vector<int>, int, std::vector<std::vector<int>>> Colony::CriaSolucoes() {
+std::tuple<std::vector<int>, int, float, std::vector<int>> Colony::CriaSolucoes() {
 	auto start = std::chrono::high_resolution_clock::now();
 	int bestCusto = INT_MAX;
 	std::vector<int> bestSolu;
-	std::vector<std::vector<int>> localBests;
+	std::vector<int> localCosts;
 	auto bestTime = std::chrono::high_resolution_clock::now();
 	while (true) {
 		auto now = std::chrono::high_resolution_clock::now();
@@ -97,7 +97,7 @@ std::tuple<std::vector<int>, int, std::vector<std::vector<int>>> Colony::CriaSol
 			}
 		}
 		// Tem erro nesse final
-		localBests.push_back(bestSoluLocal);
+		localCosts.push_back(bestCustoLocal);
 		if (bestCusto > bestCustoLocal) {
 			bestCusto = bestCustoLocal;
 			bestSolu = bestSoluLocal;
@@ -106,6 +106,6 @@ std::tuple<std::vector<int>, int, std::vector<std::vector<int>>> Colony::CriaSol
 		AtualizaFeromonio();
 		AtualizaProbabilidades();
 	}
-	std::cout << bestCusto;
-	return std::make_tuple(bestSolu, bestCusto, localBests);
+	std::cout << bestCusto << "tempo" << std::chrono::duration<float>(bestTime - start).count();
+	return std::make_tuple(bestSolu, bestCusto, std::chrono::duration<float>(bestTime - start).count(), localCosts);
 }
