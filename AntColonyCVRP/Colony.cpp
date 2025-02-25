@@ -89,14 +89,13 @@ std::tuple<std::vector<int>, int, float, std::vector<int>> Colony::CriaSolucoes(
 		int bestCustoLocal = INT_MAX;
 		std::vector<int> bestSoluLocal;
 		for (int i = 0; i < numFormigas; i++) {
-			// ESTA AQUI
 			formigas[i].CriaSolucao(this->cidades, this->distancias, this->probabilidades);
 			if (bestCustoLocal > formigas[i].getCusto()) {
 				bestCustoLocal = formigas[i].getCusto();
 				bestSoluLocal = formigas[i].getSolucao();
+				//formigas[i].ImprimeRotas();
 			}
 		}
-		// Tem erro nesse final
 		localCosts.push_back(bestCustoLocal);
 		if (bestCusto > bestCustoLocal) {
 			bestCusto = bestCustoLocal;

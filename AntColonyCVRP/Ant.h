@@ -26,5 +26,7 @@ public:
 	void Two_Opt(const std::vector<Cidade>& cidades, const std::vector<std::vector<int>>& distancias);
 
 	void Swap(const std::vector<Cidade>& cidades, const std::vector<std::vector<int>>& distancias);
+
+	void ImprimeRotas();
 };
 
