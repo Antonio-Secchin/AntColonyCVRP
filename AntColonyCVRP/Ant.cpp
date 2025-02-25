@@ -28,7 +28,7 @@ void Ant::CriaSolucao(std::vector<Cidade> cidades, const std::vector<std::vector
 	int cidadeAnt = 0;
 	solucao = std::vector<int>();  // Recria o vetor zerado
 	int cidadesTotais = cidades.size();
-	int test = 0;
+	solucao.push_back(0);
 	//Visitando o 0
 	cidadesVisitadas++;
 	while (cidadesVisitadas < cidadesTotais) {
@@ -41,6 +41,9 @@ void Ant::CriaSolucao(std::vector<Cidade> cidades, const std::vector<std::vector
 		//std::cout << "Cidades Visitadas:" << cidadesVisitadas << "\n";
 		//test++;
 	}
+	custo += distancias[cidadeAnt][0];
+	solucao.push_back(0);
+	Swap(cidades, distancias);
 }
 
 int Ant::EscolheProxVertice(const std::vector<bool>& visitados, const std::vector<Cidade>& cidades, 
@@ -68,4 +71,49 @@ int Ant::EscolheProxVertice(const std::vector<bool>& visitados, const std::vecto
 	}
 	capacidadeAtual = capacidade;
 	return 0; // Retorna zero pois nao ha cidade que consegue abastecer
+}
+
+void Ant::Two_Opt(const std::vector<Cidade>& cidades, const std::vector<std::vector<int>>& distancias) {
+
+}
+
+void Ant::Swap(const std::vector<Cidade>& cidades, const std::vector<std::vector<int>>& distancias) {
+	int n = solucao.size();
+	int bestDelta = 0;
+	int bestI = -1, bestJ = -1;
+
+	for (int i = 1; i < n - 1; i++) {
+		if (i < (n - 1) && solucao[i + 1] == 0) {
+			if (bestI != -1) {
+				std::swap(solucao[bestI], solucao[bestJ]);
+			}
+			bestI = -1;
+			bestJ = -1;
+			bestDelta = 0;
+			// Evitar ultrapassar os limites do vetor
+			if (i + 2 < n - 1) {
+				i += 2;
+			}
+			else {
+				break;
+			}
+		}
+		for (int j = i + 1; j < n - 1; j++) {
+			if (j < (n- 1) && solucao[j + 1] == 0) {
+				break;
+			}
+			int delta = (distancias[solucao[i - 1]][solucao[j]] + distancias[solucao[i]][solucao[j + 1]]) -
+				(distancias[solucao[i - 1]][solucao[i]] + distancias[solucao[j]][solucao[j + 1]]);
+
+			if (delta < bestDelta) {
+				bestDelta = delta;
+				bestI = i;
+				bestJ = j;
+			}
+		}
+	}
+
+	if (bestI != -1) {
+		std::swap(solucao[bestI], solucao[bestJ]);
+	}
 }

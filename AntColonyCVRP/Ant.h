@@ -22,5 +22,9 @@ public:
 
 	int EscolheProxVertice(const std::vector<bool>& visitados, const std::vector<Cidade>& cidades,
 		const std::vector<double>& probabilidades);
+
+	void Two_Opt(const std::vector<Cidade>& cidades, const std::vector<std::vector<int>>& distancias);
+
+	void Swap(const std::vector<Cidade>& cidades, const std::vector<std::vector<int>>& distancias);
 };
 

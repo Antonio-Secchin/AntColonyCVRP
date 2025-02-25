@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<PropertyGroup>
+    <OutputPath>$(ProjectDir)x64\Debug\</OutputPath>
+    <Executable>AntColonyCVRP.exe</Executable>
+    <InputFile>C:\Users\anton\Downloads\Vrp-Set-A\A\A-n32-k5.vrp</InputFile>
+    <EvaporationRate1>0.5</EvaporationRate1>
+    <EvaporationRate2>0.5</EvaporationRate2>
+    <EvaporationRate3>0.1</EvaporationRate3>
+    <alpha1>1.0</alpha1>
+    <alpha2>1.0</alpha2>
+    <alpha3>1.4</alpha3>
+    <beta1>2.0</beta1>
+    <beta2>1.0</beta2>
+    <beta3>2.0</beta3>
+    <TempoExec>10</TempoExec>
+    <N_Formigas>10</N_Formigas>
+</PropertyGroup>
+  <Target Name="RunMultipleTimes" AfterTargets="Build">
+        <Exec Command='"$(OutDir)$(Executable)" "$(InputFile)" $(EvaporationRate1) $(alpha1) $(beta1) $(TempoExec) $(N_Formigas)' />
+        <Exec Command='"$(OutDir)$(Executable)" "$(InputFile)" $(EvaporationRate2) $(alpha2) $(beta2) $(TempoExec) $(N_Formigas)' />
+        <Exec Command='"$(OutDir)$(Executable)" "$(InputFile)" $(EvaporationRate3) $(alpha3) $(beta3) $(TempoExec) $(N_Formigas)' />
+  </Target>
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
