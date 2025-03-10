@@ -25,9 +25,9 @@ class Colony :
 
 public:
 
-    Colony(double evaporationRate, double alpha, double beta, int tempoExec, int numFormigas, const std::string& caminho);
+    Colony(double evaporationRate, double alpha, double beta, int tempoExec, int numFormigas, const std::string& conteudo);
 
-    void AtualizaFeromonio();
+    void AtualizaFeromonio(std::vector<int>& bestSolu, int& bestCusto);
 
     void AtualizaProbabilidades();
 

@@ -33,6 +33,9 @@
     <ClCompile Include="Colony.cpp">
       <Filter>Arquivos de Origem\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Arquivo.ixx">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Grafo.h">

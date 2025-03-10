@@ -5,6 +5,7 @@
 #include <sstream>
 #include <filesystem>
 
+//Construtor do grafo sem o arquivo
 Grafo::Grafo(int numCidades, int capacity) {
     cidades.reserve(numCidades);  // Opcional: otimiza alocação
     distancias.resize(numCidades, std::vector<int>(numCidades, -1));  // -1 indica sem conexão
@@ -12,12 +13,14 @@ Grafo::Grafo(int numCidades, int capacity) {
     this->numCidades = numCidades;
 }
 
-Grafo::Grafo(const std::string& caminho) {
+//Construtor do grafo com a string do arquivo
+Grafo::Grafo(const std::string& conteudo) {
     this->capacidade = 0;
     std::string linha;
-    std::ifstream arquivo(caminho);
+    std::istringstream arquivo(conteudo);
     int numCidades = 0, capacity = 0;
     bool lendoCoordenadas = false, lendoDemanda = false;
+
     while (std::getline(arquivo, linha)) {
         std::istringstream stream(linha);
         std::string palavra;
@@ -71,14 +74,22 @@ Grafo::Grafo(const std::string& caminho) {
 
 }
 
+//Retorna a cidade do grafo no vertice dado
 Cidade Grafo::getCidade(int vertice) const {
     return cidades[vertice];
 }
 
+//Retorna todas as cidades
+std::vector<Cidade> Grafo::getCidades() {
+    return cidades;
+}
+
+//Retorna a distancia entre duas cidades
 int Grafo::getDistancia(int vertice1, int vertice2) const {
     return distancias[vertice1][vertice2];
 }
 
+//Imprime o grafo
 std::string Grafo::toString() const {
     std::ostringstream oss;
     oss << "Capacidade: " << capacidade << "\n";

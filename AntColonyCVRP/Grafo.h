@@ -2,6 +2,7 @@
 #include "Cidade.h"
 #include <vector>
 #include <string>
+#include <vector>
 
 class Grafo
 {
@@ -15,9 +16,11 @@ public:
 
 	Grafo(int numCidades, int capacidade);
 
-	Grafo(const std::string& caminho);
+	Grafo(const std::string& conteudo);
 
 	Cidade getCidade(int vertice) const;
+
+	std::vector<Cidade> getCidades();
 
 	int getDistancia(int vertice1, int vertice2) const;
 
