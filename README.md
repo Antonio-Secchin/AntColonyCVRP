@@ -1,6 +1,6 @@
 # AntColonyCVRP
 
-Trabalho desenvolvido para a matéria de Tópicos em Otimização, com o objetivo de implementar a meta-heuristica de colônia de formigas no problema de Problema do Roteamento de Veículos Capacitados (CVRP) 
+Trabalho desenvolvido para a matéria de Tópicos em Otimização, com o objetivo de implementar a Meta-heurística de colônia de formigas no problema de Problema do Roteamento de Veículos Capacitados (CVRP) 
 
 ## Configuração para Desenvolvimento
 
